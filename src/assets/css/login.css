@@ -1,0 +1,27 @@
+.body {
+    padding-top: 15%;
+    background-image: url(../img/fondo.jpg);
+    position: absolute;
+    background-position: center center;
+}
+
+.img-home {
+    max-width: 335px;
+    height:335px;
+    
+}
+
+.img-content{
+    margin-right:40px;
+}
+
+.title {
+    color: #fff;
+    text-shadow: 1px 1px ;
+    line-height: normal;
+    font-weight: 1em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 40px;
+    margin-bottom: 10px;
+    font-weight:bold;
+}

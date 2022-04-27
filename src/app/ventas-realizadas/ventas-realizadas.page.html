@@ -1,0 +1,119 @@
+<ion-content>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">ELEVEN JEANS</a>
+      </div>
+  
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a (click)="Opciones(1)">Cobranza</a></li>
+          <li><a (click)="Opciones(2)">Ventas</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ nombre }}<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a (click)="login()">Cerrar Sesión</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav> 
+
+  <div class="content" style="background-color: #73c5fc; height: 100%;">
+    <div class="container-fluid">
+ 
+      <br>
+      <div>
+        <div class="panel-group">
+          <div class="panel panel-primary"> 
+            <div class="panel-body"> 
+              <div class="form-group"> 
+                <label for="exampleInputEmail1">Fecha Inicio</label>
+                <input type="date" class="form-control" placeholder="Fecha Inicio" [(ngModel)]="FCH_INICIO" [ngModelOptions]="{standalone: true}"> 
+              </div>
+              <div class="form-group"> 
+                <label for="exampleInputEmail1">Fecha Fin</label>
+                <input type="date" class="form-control" placeholder="Fecha Fin" [(ngModel)]="FCH_FIN" [ngModelOptions]="{standalone: true}"> 
+              </div>
+              <div class="col-sm-12" style="text-align: center;">   
+                <button class="btn btn-sm btn-primary btn-block" (click)="Buscar()">Buscar</button>
+              </div> 
+            </div>
+          </div> 
+        </div>
+      </div>
+      <div>
+        <div class="panel-group">
+          <div class="panel panel-primary">
+            <div class="panel-heading" style="text-align: center;"><h3>TOTAL VENDIDO</h3></div>
+            <div class="panel-body">
+              <div class="table-responsive col-sm-12" style="text-align: center;">  
+                <div class="table-responsive">
+                  <table class="table table-striped table-border:" style="color: black;">
+                      <thead>
+                          <tr> 
+                              <th scope="col" style="text-align: center;">Tipo</th>
+                              <th scope="col" style="text-align: center;">Cantidad</th> 
+                              <th scope="col" style="text-align: center;">Importe</th> 
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let o of objetoSeleccion"> 
+                              <td>{{o.TIPO}}</td>
+                              <td style="text-align: right;">{{o.CANTIDAD}}</td> 
+                              <td style="text-align: right;">{{o.IMPORTE | currency}}</td>
+                          </tr> 
+                      </tbody>
+                  </table>
+                </div>  
+            </div>
+            </div>
+          </div> 
+        </div>
+        <div class="panel-group">
+          <div class="panel panel-primary">
+            <div class="panel-heading" style="text-align: center;"><h3>DESGLOSE</h3></div>
+            <div class="panel-body">
+              <div class="col-sm-12">  
+                <ion-card *ngFor="let o of objetoDesgloce" color="light"> 
+                  <ion-card-content>  
+                    <p style="font-size: 12px;"><b><b>Folio: {{o.VVD_FOLIO}}<br>Fecha:</b> {{o.VVD_VENTA_FECHA}}  <b>Hora:</b> {{o.VVD_VENTA_HORA}}<br>  <b>Cliente:</b> {{o.VCL_NOMBRE}}</b></p>
+                    <hr style="color: #73c5fc;">
+                    <p style="font-size: 12px;"><b>Paquetes:</b></p> 
+                    <p style="font-size: 11px; text-align: right;"><b>Cantidad:</b>  {{o.CANTIDAD_PAQUETES}}<br>  <b>Importe:  {{o.IMPORTE_PAQUETES | currency}}</b></p> 
+                    <p style="font-size: 12px;"><b>Individuales:</b></p> 
+                    <p style="font-size: 11px; text-align: right;"><b>Cantidad:</b>   {{o.CANTIDAD_INDIVIDUALES}}<br>  <b>Importe:</b>  {{o.IMPORTE_INDIVIDUALES | currency}}</p>  
+                    <hr style="color: #73c5fc;">
+                    <p style="font-size: 12px; text-align: right;"><b>Total:</b>  {{o.VVD_TOTAL | currency}}</p> 
+                  </ion-card-content>
+                </ion-card> 
+            </div>
+            </div>
+          </div> 
+          <br>
+          <div class="col-sm-12" style="text-align: center;">   
+            <button class="btn btn-sm btn-primary btn-block" (click)="atras()">Volver a menú</button>
+          </div> 
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="primary" style="padding-left: 10px;">
+    <ion-title slot="end" style="font-weight: 900; text-align: right;">APD</ion-title>
+  </ion-toolbar>
+</ion-footer>

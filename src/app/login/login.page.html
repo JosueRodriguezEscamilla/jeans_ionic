@@ -1,0 +1,52 @@
+<ion-header>
+
+</ion-header>
+
+<ion-content>
+  <div class="body">
+    <div class="principal-container">
+      <div class="container bootstrap snippets bootdey">
+        <div class="row">
+          <div class="col-md-4">
+            <img src="assets/img/ELEVEN_JEANS_Logotipos.png">
+          </div>
+          <div class="col-md-7 form-content">
+            <h1 class="title">Iniciar Sesión</h1>
+            <br>
+            <form class="form-horizontal">
+              <div class="form-group">
+                <p class="col-sm-2" style="color: white;">Usuario</p>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control" placeholder="Usuario" [(ngModel)]="JVE_USUARIO" [ngModelOptions]="{standalone: true}"  style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                </div>
+              </div>
+              <div class="form-group">
+                <p class="col-sm-2" style="color: white;">Contraseña</p>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" [(ngModel)]="JVE_PASSWORD" [ngModelOptions]="{standalone: true}" placeholder="CONTRASEÑA">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-12" style="text-align: right;">
+                  <a href="recupera()" style="color: white;">¿Olvidaste tu Contraseña?</a>
+                </div>
+              </div>
+              <div class="row col-sm-12">
+                <div class="col-sm-6" style="text-align: right;">
+                  <button type="submit" class="btn btn-primary" (click)="regresar()"  style="margin-right: 10px;">Regresar</button>
+                  <button type="submit" class="btn btn-primary" (click)="usuariosLogin()">Ingresar</button>
+                </div>
+              </div>
+              <br>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="primary" style="padding-left: 10px;">
+    <ion-title slot="end" style="font-weight: 900; text-align: right;">APD 2.0.1</ion-title>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,178 @@
+<ion-content>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">ELEVEN JEANS</a>
+      </div>
+  
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a (click)="Opciones(1)">Cobranza</a></li>
+          <li><a (click)="Opciones(2)">Ventas</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ nombre }}<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a (click)="login()">Cerrar Sesión</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+  <div class="content" style="background-color: #73c5fc; height: 100%;">
+    <div class="container-fluid">
+      <!--CONTENIDO-->
+      <br> 
+    <div *ngIf="isVenta">
+      <div class="panel-group">
+        <div class="panel panel-primary">
+          <div class="panel-heading" style="text-align: center;"><h3>VENTAS</h3></div>
+          <div class="panel-body">
+            <div class="table-responsive col-sm-12" style="text-align: center;">
+              <div class="row">
+                <ion-segment [(ngModel)]="tipoVenta" [ngModelOptions]="{standalone: true}">
+                  <ion-segment-button value="PAQUETE">
+                    <ion-label>PAQUETE</ion-label>
+                  </ion-segment-button>
+                  <ion-segment-button value="INDIVIDUAL">
+                    <ion-label>INDIVIDUAL</ion-label>
+                  </ion-segment-button>
+                </ion-segment> 
+              </div>
+              <br>
+              <div class="row">
+                <div class="input-group">
+                  <input [(ngModel)]="paquete" id="password" type="text" class="form-control" name="password" placeholder="Buscar...">
+                  <span class="input-group-addon" (click)="presentModal()"><i class="glyphicon glyphicon-search"></i></span>
+                </div>
+              </div> 
+              <h4 class="text-primary">Paquetes</h4> 
+              <div class="table-responsive">
+                <table class="table table-striped table-border:" style="color: black;">
+                    <thead>
+                        <tr> 
+                            <th scope="col" style="text-align: center;">Descripción</th>
+                            <th scope="col" style="text-align: center;">Cantidad</th> 
+                            <th scope="col" style="text-align: center;">Precio Unitario</th>
+                            <th scope="col" style="text-align: center;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let o of objetoSeleccion"> 
+                            <td>{{o.AAR_PA_FOLIO}} - {{o.AAR_DESCRIPCION}}</td>
+                            <td><input class="form-control" (keyup)="modificarPaqCantidad($event, o.RENGLON)" style="text-align: right; height: 11px;" type="text" value="{{o.AAR_PA_NUMERO_PIEZAS}}"></td>
+                            <td style="text-align: right;"><input class="form-control" (keyup)="modificarPaqPrecio($event, o.RENGLON)" style="text-align: right; height: 11px;" type="text" value="{{o.AAR_PRECIO_VENTA_FINAL}}"></td>
+                            <td style="text-align: right;">{{o.AAR_PA_PRECIO | currency}}</td>
+                        </tr> 
+                    </tbody>
+                </table>
+              </div> 
+              <h4 class="text-primary">Individual</h4> 
+              <div class="table-responsive">
+                <table class="table table-striped table-border:" style="color: black;">
+                    <thead>
+                        <tr>  
+                            <th scope="col" style="text-align: center;">Descripción</th>
+                            <th scope="col" style="text-align: center;">Cantidad</th> 
+                            <th scope="col" style="text-align: center;">Precio Unitario</th>
+                            <th scope="col" style="text-align: center;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        <tr *ngFor="let o of objetoSeleccionInd"> 
+                            <td>{{o.JAI_COLOR}} / {{o.JAI_TALLA}} - {{o.AAR_DESCRIPCION}}</td>
+                            <td><input (keyup)="modificarIndCantidad($event, o.RENGLON)" class="form-control" style="text-align: right; height: 11px;" type="text" value="{{o.JAI_CANTIDAD}}"></td>
+                            <td style="text-align: right;"><input (keyup)="modificarIndPrecio($event, o.RENGLON)" class="form-control" style="text-align: right; height: 11px;" type="text" value="{{o.AAR_PA_PRECIO}}"></td>
+                            <td style="text-align: right;">{{o.AAR_TOTAL | currency}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+              </div> 
+          </div>
+          <div class="row">
+            <div class="col-sm-6" style="text-align: right;" >
+              <h4>Total</h4>
+            </div>
+            <div class="col-sm-6" style="text-align:right;">
+              <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <ion-input class="form-control" type="text" value="{{total | currency}}" readonly style="color: black;"></ion-input> 
+              </div>
+            </div>
+            <br>
+            <div class="col-sm-12" style="text-align: right;">
+              <button (click)="guardar()" class="btn btn-lg" style="background-color: #0275d8; color: white;" >
+                REALIZAR VENTA
+              </button>
+            </div> 
+            <br>
+          </div>
+          </div>
+        </div>
+      </div> 
+      <div class="col-sm-12" style="text-align: center;">   
+        <button class="btn btn-sm btn-primary btn-block" (click)="restablecer()">Reiniciar venta</button>
+      </div> 
+      <br>
+      <div class="col-sm-12" style="text-align: center;">   
+        <button class="btn btn-sm btn-primary btn-block" (click)="atras()">Volver a menú</button>
+      </div> 
+      <br>
+    </div> 
+    <div *ngIf="isModal">
+      <div class="panel-group">
+        <div class="panel panel-primary">
+          <div class="panel-heading" style="text-align: center;"><h3>Existencias</h3></div>
+          <div class="panel-body">
+            <div *ngIf="isPaquete" class="col-sm-6" style="text-align: center; padding-bottom: 10px;"> 
+              <button class="btn btn-sm btn-primary btn-block" (click)="volver()">Volver</button> 
+            </div> 
+            <div *ngIf="isPaquete" class="col-sm-6" style="text-align: center; padding-bottom: 10px;">  
+              <button class="btn btn-sm btn-primary btn-block" (click)="desglozarPaquetes()">Desglozar paquete</button>
+            </div> 
+            <div *ngIf="!isPaquete" class="col-sm-12" style="text-align: center; padding-bottom: 10px;"> 
+              <button class="btn btn-sm btn-primary btn-block" (click)="volver()">Volver</button>
+            </div> 
+            <div class="col-sm-12" style="text-align: center;"> 
+              <p *ngIf="isPaquete">Total existencias: {{numeroExistencias}} paquetes</p>
+              <p *ngIf="!isPaquete">Total existencias: {{numeroExistencias}} individuales</p>
+            </div>
+            <div class="col-sm-12" style="text-align: center;"> 
+              <div class="list-group">
+                <a class="list-group-item list-group-item-action active">
+                  SELECCIONAR {{tipoVenta}}
+                </a>
+                <div *ngIf="isPaquete">
+                  <a *ngFor="let o of existencias" class="list-group-item list-group-item-action" style="font-size: small; font-weight: 900;"><input id="chk" type="checkbox"(change)="Checked($event,o.AAR_PA_FOLIO,0,0)">&nbsp;&nbsp;FOLIO: {{o.AAR_PA_FOLIO}} <br>{{o.AAR_DESCRIPCION}} <br> PRECIO: {{o.AAR_PA_PRECIO | currency}}</a> 
+                </div>
+                <div *ngIf="!isPaquete">
+                  <a *ngFor="let o of existencias" class="list-group-item list-group-item-action" style="font-size: small; font-weight: 900;"><input id="chk" type="checkbox"(change)="Checked($event,o.AAR_CLAVE,o.JAI_TALLA,o.JAI_COLOR)">&nbsp;&nbsp;ESTILO: {{o.JAI_MARCA}} - {{o.AAR_DESCRIPCION}} <br>
+                                                                                                                                                                                                                COLOR: {{o.JAI_COLOR}} <br> 
+                                                                                                                                                                                                                TALLA: {{o.JAI_TALLA}} <br> 
+                                                                                                                                                                                                                PRECIO: {{o.AAR_PRECIO_VENTA | currency}}<br>
+                                                                                                                                                                                                                <p style="font-size: 22px;">EXISTENCIAS: {{o.JAI_CANTIDAD}} pza(s).</p></a> 
+                </div>
+              </div>  
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="primary" style="padding-left: 10px;">
+    <ion-title slot="end" style="font-weight: 900; text-align: right;">APD</ion-title>
+  </ion-toolbar>
+</ion-footer>

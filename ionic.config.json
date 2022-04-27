@@ -1,0 +1,10 @@
+{
+  "name": "APD_Ionic_Jeans",
+  "integrations": {
+    "capacitor": {
+      "enabled": false
+    },
+    "cordova": {}
+  },
+  "type": "angular"
+}
